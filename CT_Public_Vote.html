@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CT — The Next Era</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy: #0d1520;
+  --navy-mid: #111e2e;
+  --navy-light: #162336;
+  --navy-border: #1e2f42;
+  --gold: #c9a84c;
+  --gold-light: #e2c470;
+  --gold-dim: #6b5520;
+  --gold-glow: rgba(201,168,76,0.12);
+  --silver: #8a9bb0;
+  --silver-light: #b8c8d8;
+  --text: #d8e4f0;
+  --text-muted: #7a90a8;
+  --text-dim: #435566;
+  --red: #8b1a1a;
+  --red-bright: #c0392b;
+  --white: #f0f4f8;
+  --ct-blue: #2a4a7f;
+  --ct-blue-light: #3a6ab0;
+  --ct-blue-glow: rgba(42,74,127,0.2);
+}
+
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.4;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  background: linear-gradient(180deg, #070e18 0%, var(--navy) 100%);
+  padding: 80px 32px 60px;
+  border-bottom: 1px solid var(--navy-border);
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner { max-width: 760px; margin: 0 auto; position: relative; }
+
+.ct-eyebrow {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.ct-eyebrow::before, .ct-eyebrow::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--gold-dim);
+}
+
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(36px, 7vw, 72px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: 3px;
+}
+
+.hero-title span { color: var(--gold); }
+
+.hero-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(13px, 2vw, 18px);
+  color: var(--silver);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.hero-divider-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim));
+}
+
+.hero-divider-line.rev {
+  background: linear-gradient(270deg, transparent, var(--gold-dim));
+}
+
+.hero-divider-diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+.hero-body {
+  font-family: 'Crimson Text', serif;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #a8bcd0;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hero-body strong { color: var(--gold-light); font-weight: 600; }
+
+/* Notice banner */
+.notice {
+  background: var(--navy-light);
+  border-top: 1px solid var(--navy-border);
+  border-bottom: 1px solid var(--navy-border);
+  padding: 20px 32px;
+}
+
+.notice-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.notice-icon {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  border: 1px solid var(--gold-dim);
+  padding: 3px 8px;
+}
+
+.notice-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+.notice-text strong { color: var(--gold-light); font-weight: 600; }
+
+/* Nav */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7, 14, 24, 0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--navy-border);
+}
+
+.nav {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 32px;
+  justify-content: center;
+}
+
+.nav::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 18px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.nav-btn:hover { color: var(--silver); }
+.nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+.nav-btn.locked { color: var(--red) !important; opacity: 0.5; }
+.nav-btn.locked.active { opacity: 1; border-bottom-color: var(--red) !important; }
+
+/* Main */
+.main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 60px 32px 100px;
+}
+
+.section { display: none; animation: fadeUp 0.35s ease; }
+.section.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section headers */
+.sec-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.sec-num {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  flex-shrink: 0;
+}
+
+.sec-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--navy-border), transparent);
+}
+
+.sec-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+
+.sec-title span { color: var(--gold); }
+
+p {
+  font-family: 'Crimson Text', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #a8bcd0;
+  margin-bottom: 22px;
+}
+
+strong { color: var(--gold-light); font-weight: 600; }
+
+/* Options */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  margin: 40px 0;
+}
+
+.option-card {
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+  border-top: 3px solid var(--navy-border);
+  transition: border-top-color 0.25s;
+}
+
+.option-card:hover { border-top-color: var(--gold); }
+
+.option-card.phase3 { background: var(--navy-light); }
+.option-card.contested { background: linear-gradient(135deg, #111e2e, #141822); }
+
+.option-num {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.option-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.option-name span { color: var(--gold); }
+
+.option-tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--navy-border);
+}
+
+.option-body {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  letter-spacing: 0.3px;
+  margin-bottom: 24px;
+}
+
+.option-pillars { margin-top: 20px; }
+
+.option-pillar {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--navy-border);
+  align-items: flex-start;
+}
+
+.option-pillar:last-child { border-bottom: none; }
+
+.pillar-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  flex-shrink: 0;
+  margin-top: 6px;
+  transform: rotate(45deg);
+}
+
+.contested .pillar-dot { background: var(--red-bright); }
+
+.pillar-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+}
+
+.pillar-text strong { color: var(--silver-light); font-weight: 600; }
+
+/* What stays section */
+.stays-block {
+  background: var(--navy-light);
+  border: 1px solid var(--navy-border);
+  border-left: 3px solid var(--gold-dim);
+  padding: 28px;
+  margin: 36px 0;
+}
+
+.stays-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.stays-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.stays-item {
+  display: flex;
+  gap: 10px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.stays-item::before {
+  content: '—';
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+/* Discord CTA */
+.discord-cta {
+  border: 1px solid var(--navy-border);
+  background: var(--navy-light);
+  padding: 48px 40px;
+  text-align: center;
+  position: relative;
+  margin: 48px 0;
+  overflow: hidden;
+}
+
+.discord-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+}
+
+.discord-cta::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+}
+
+.cta-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.cta-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  line-height: 1.3;
+}
+
+.cta-title span { color: var(--gold); }
+
+.cta-body {
+  font-family: 'Crimson Text', serif;
+  font-size: 17px;
+  color: #a8bcd0;
+  line-height: 1.75;
+  max-width: 540px;
+  margin: 0 auto 32px;
+}
+
+.cta-note {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--navy-border);
+}
+
+.cta-note strong { color: var(--gold); font-weight: 600; }
+
+/* Culmination locked */
+.locked-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  text-align: center;
+  min-height: 400px;
+}
+
+.lock-icon {
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--red);
+  background: rgba(139,26,26,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+}
+
+.lock-icon svg { width: 28px; height: 28px; }
+
+.lock-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.lock-sub {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(12px, 2vw, 16px);
+  color: var(--red-bright);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.lock-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.lock-divider-line {
+  width: 60px;
+  height: 1px;
+  background: var(--red);
+  opacity: 0.4;
+}
+
+.lock-divider-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--red-bright);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.lock-body {
+  font-family: 'Crimson Text', serif;
+  font-size: 16px;
+  color: #7a6060;
+  font-style: italic;
+  max-width: 420px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.lock-classification {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--red-bright);
+  border: 1px solid var(--red);
+  padding: 6px 16px;
+  background: rgba(139,26,26,0.08);
+  opacity: 0.7;
+}
+
+/* Callout */
+.callout {
+  border-left: 3px solid var(--gold-dim);
+  background: var(--navy-light);
+  padding: 22px 28px;
+  margin: 36px 0;
+  position: relative;
+}
+
+.callout::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+
+.callout p { margin: 0; color: var(--silver-light); font-style: italic; font-size: 17px; }
+
+.callout-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .options-grid { grid-template-columns: 1fr; }
+  .stays-grid { grid-template-columns: 1fr; }
+  .main { padding: 40px 20px 80px; }
+  .nav { padding: 0 16px; justify-content: flex-start; }
+  .hero { padding: 60px 20px 48px; }
+  .discord-cta { padding: 40px 24px; }
+  .notice { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="ct-eyebrow">Cross Termination</div>
+    <div class="hero-title">THE <span>NEXT</span> ERA</div>
+    <div class="hero-subtitle">A Message to the Faction</div>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-divider-diamond"></div>
+      <div class="hero-divider-line rev"></div>
+    </div>
+    <div class="hero-body">
+      <p>Phase II is over. The enforcement era has ended — not in defeat, but in victory. What comes next is the decision that defines CT's future. This page exists to make sure every member understands what is being considered and why.</p>
+    </div>
+  </div>
+</div>
+
+<div class="notice">
+  <div class="notice-inner">
+    <div class="notice-icon">NOTE</div>
+    <div class="notice-text">An announcement was recently posted by <strong>Chairman Potato</strong> outlining Phase III — CT Boot Camp, Watch Guard, and Welcoming Center as the faction's new direction. <strong>That option is still on the table.</strong> This page presents that proposal alongside a second option that has since been developed. Both are being considered. Your thoughts on either will carry weight in the final decision.</div>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <nav class="nav">
+    <button class="nav-btn active" onclick="show('overview', this)">Overview</button>
+    <button class="nav-btn" onclick="show('options', this)">The Two Paths</button>
+    <button class="nav-btn" onclick="show('discord', this)">Have Your Say</button>
+    <button class="nav-btn locked" onclick="show('culmination', this)">⚑ [CLASSIFIED]</button>
+  </nav>
+</div>
+
+<div class="main">
+
+  <!-- OVERVIEW -->
+  <div id="overview" class="section active">
+    <div class="sec-eyebrow"><div class="sec-num">Overview</div><div class="sec-line"></div></div>
+    <div class="sec-title">Where <span>CT</span> Stands</div>
+
+    <p>Last month NBTF voted to implement official game mechanics to address cross-teaming. The community spoke clearly — and in doing so, they validated everything CT has stood for since day one. The problem we were built to solve is now being handled at the game level.</p>
+
+    <p>That is not a loss. <strong>That is the culmination of CT's original mission.</strong> We fought long enough and loud enough that the game itself had no choice but to act. Phase II ends in success.</p>
+
+    <div class="callout">
+      <div class="callout-title">The Reality</div>
+      <p>With the enforcement mission complete, CT faces a question every faction eventually has to answer — what do we stand for when the original fight is over? Two serious options are on the table. Neither is the wrong answer. Both require commitment.</p>
+    </div>
+
+    <p>Activity has dipped. That's honest and the council knows it. But the fact that members are still here, still reading this, still reacting to announcements — that means something. There is still a faction worth saving. The question is which direction gives CT the best chance at a real next chapter.</p>
+
+    <p>What stays regardless of which path is chosen:</p>
+
+    <div class="stays-block">
+      <div class="stays-title">Stays No Matter What</div>
+      <div class="stays-grid">
+        <div class="stays-item">Raven and Enforcer Companies</div>
+        <div class="stays-item">Full rank progression systems</div>
+        <div class="stays-item">CT Boot Camp (CTBC)</div>
+        <div class="stays-item">Executive structure</div>
+        <div class="stays-item">CTC economy and rewards</div>
+        <div class="stays-item">Strike and discipline system</div>
+        <div class="stays-item">Retirement policy and benefits</div>
+        <div class="stays-item">CT's name, legacy, and history</div>
+      </div>
+    </div>
+
+    <p>The two paths differ in focus, identity, and what CT becomes to its members and to NBTF. Head to <strong>The Two Paths</strong> to read both proposals.</p>
+  </div>
+
+  <!-- OPTIONS -->
+  <div id="options" class="section">
+    <div class="sec-eyebrow"><div class="sec-num">The Two Paths</div><div class="sec-line"></div></div>
+    <div class="sec-title">What CT <span>Becomes</span></div>
+
+    <p>Two distinct directions are being considered. Read both carefully before sharing your thoughts on Discord. Neither is fully finalized — details will be shaped by the council with input from the faction.</p>
+
+    <div class="options-grid">
+
+      <div class="option-card phase3">
+        <div class="option-num">Option A</div>
+        <div class="option-name">Phase <span>III</span></div>
+        <div class="option-tag">The Institution</div>
+        <div class="option-body">CT transitions from an enforcement faction into NBTF's premier training and onboarding institution. The focus shifts to welcoming new players, developing members, and becoming the faction that represents what organized, structured gameplay looks like — while everything else in the faction ecosystem breaks down around us.</div>
+        <div class="option-pillars">
+          <div class="option-pillar">
+            <div class="pillar-dot"></div>
+            <div class="pillar-text"><strong>CT WatchGuards</strong> — casual on-call squads who play the game together, help new players they encounter, and keep CT visible and approachable on NBTF servers</div>
+          </div>
+          <div class="option-pillar">
+            <div class="pillar-dot"></div>
+            <div class="pillar-text"><strong>CT Welcoming Center</strong> — every new CT member gets personally guided through NBTF before anything else. Map knowledge, game mechanics, CT culture. The front door.</div>
+          </div>
+          <div class="option-pillar">
+            <div class="pillar-dot"></div>
+            <div class="pillar-text"><strong>CT Boot Camp</strong> — remains the core training pipeline. Three modules, structured progression, graduation ceremony. This is where members are made.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="option-card contested">
+        <div class="option-num">Option B</div>
+        <div class="option-name">Contested <span>Territory</span></div>
+        <div class="option-tag">The Inner War</div>
+        <div class="option-body">The Eternal War against cross-teaming ended in CT's greatest victory. With no external enemy left, CT turns inward — not in chaos, but in organized, structured conflict. Ravens and Enforcers, always on opposite sides of NBTF, now face each other in an ongoing war with real stakes, real standings, and real events. CT becomes the faction that IS the competition.</div>
+        <div class="option-pillars">
+          <div class="option-pillar">
+            <div class="pillar-dot"></div>
+            <div class="pillar-text"><strong>The Inner War</strong> — Ravens (facility) vs Enforcers (rebels) in permanent organized conflict. Running standings, seasonal events, faction-wide rivalry with lore and history behind every engagement</div>
+          </div>
+          <div class="option-pillar">
+            <div class="pillar-dot"></div>
+            <div class="pillar-text"><strong>Public Integration</strong> — regular NBTF players can plug into CT's conflict through a for-hire system and contract requests. CT's war becomes the server's entertainment</div>
+          </div>
+          <div class="option-pillar">
+            <div class="pillar-dot"></div>
+            <div class="pillar-text"><strong>CT Boot Camp</strong> — still exists as the entry point. New members are trained and then choose their side. Which company you fight for matters more than ever.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Important</div>
+      <p>Neither option is fully built yet. What you see here is the direction, not the complete system. The council will develop whichever path is chosen with input from the faction. Your voice in this matters.</p>
+    </div>
+  </div>
+
+  <!-- DISCORD CTA -->
+  <div id="discord" class="section">
+    <div class="sec-eyebrow"><div class="sec-num">Have Your Say</div><div class="sec-line"></div></div>
+    <div class="sec-title">Your <span>Voice</span> Matters</div>
+
+    <p>The council will make the final decision on CT's direction. That has not changed. But your perspective — as someone who is actually part of this faction — carries real weight in how that decision gets made.</p>
+
+    <p>We are not asking you to vote. We are asking you to <strong>think out loud.</strong> Tell us which direction excites you. Tell us what concerns you about either option. Tell us what you'd want to see changed or added. Tell us if you'd stay, if you'd be more active, if you'd bring others in.</p>
+
+    <div class="discord-cta">
+      <div class="cta-label">Head to Discord</div>
+      <div class="cta-title">Find the vote thread and<br><span>share your thoughts</span></div>
+      <div class="cta-body">A thread has been posted in the CT Discord server for this purpose. Read both options, then drop your thoughts — which direction you'd want to see CT take, what questions you have, what you'd change.</div>
+      <div class="cta-note">
+        <strong>You are not deciding this.</strong> The council holds final authority on CT's direction per the CT bylaws. However, your input will be taken into heavy consideration — this is your faction too and leadership wants to know where the membership actually stands before committing to a path.
+      </div>
+    </div>
+
+    <p style="text-align: center; font-family: 'Rajdhani', sans-serif; font-size: 13px; color: var(--text-dim); letter-spacing: 1px;">This page will be updated as decisions are made. Check back.</p>
+  </div>
+
+  <!-- CULMINATION LOCKED -->
+  <div id="culmination" class="section">
+    <div class="locked-section">
+      <div class="lock-icon">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="13" width="16" height="12" rx="1" stroke="#8b1a1a" stroke-width="1.5"/>
+          <path d="M9 13V9C9 6.79 11.24 5 14 5C16.76 5 19 6.79 19 9V13" stroke="#8b1a1a" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="14" cy="19" r="2" fill="#8b1a1a" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="lock-title">OPERATION</div>
+      <div class="lock-sub">Classified</div>
+      <div class="lock-divider">
+        <div class="lock-divider-line"></div>
+        <div class="lock-divider-dot"></div>
+        <div class="lock-divider-line"></div>
+      </div>
+      <div class="lock-body">This option exists. Its contents are known only to the council. It is not on the table for public consideration at this time — but it has not been ruled out. If and when it becomes relevant, the faction will be the first to know.</div>
+      <div class="lock-classification">COUNCIL ACCESS ONLY</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 0 });
+  }
+</script>
+</body>
+</html>
